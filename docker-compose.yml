@@ -1,0 +1,38 @@
+version: "2"
+services:
+ node0:
+  image: node0
+  container_name: node0 
+  command: ["-s","-p","5201"]
+  networks:
+    lab03_1:
+      ipv4_address: 172.30.0.10
+
+
+ node1:
+  image: node12
+  container_name: node1
+  command: ["-c","172.30.0.10","-l","8900","-u","-p","5201"]
+  depends_on:
+    - node0
+  networks:
+    lab03_1:
+      ipv4_address: 172.30.0.11
+
+ node2:
+  image: node12
+  container_name: node2
+  command: ["-c","172.30.0.10","-l","8900","-u","-p","5201"]
+  depends_on:
+    - node0
+  networks:
+    lab03_1:
+      ipv4_address: 172.30.0.12
+  
+networks:
+  lab03_1:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.30.0.0/24
+         
